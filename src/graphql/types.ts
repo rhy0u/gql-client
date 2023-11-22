@@ -26,7 +26,7 @@ type GET_USERS_TYPE = {
     {
       __typename: string
       id: string
-      email: string
+      userName: string
       posts: {
         __typename: string
         id: string
@@ -40,7 +40,7 @@ type GET_USER_TYPE = {
   user: {
     __typename: "User"
     id: "3"
-    email: "jeason.centaure@kaibee.fr"
+    userName: "jeason"
     posts: [
       {
         __typename: "Post"
@@ -54,7 +54,7 @@ type GET_USER_TYPE = {
 type ADD_USER_TYPE = {
   addUser: {
     id: string
-    email: string
+    userName: string
     posts: []
     __typename: string
   }

@@ -33,6 +33,8 @@ const NewPost = () => {
 
   return (
     <div>
+      <h2>Add a new post</h2>
+
       <form onSubmit={handleSubmit}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <TextField
