@@ -1,4 +1,4 @@
-import { useSuspenseQuery, gql } from "@apollo/client"
+import { useQuery, gql } from "@apollo/client"
 import { Box, Button } from "@mui/material"
 import { Link, LoaderFunctionArgs, useLoaderData } from "react-router-dom"
 
@@ -19,30 +19,33 @@ export const loader = (args: LoaderFunctionArgs) => args.params
 
 const Home = () => {
   const { userId } = useLoaderData() as { userId: string }
-  const { data, error } = useSuspenseQuery<GET_USER_TYPE>(GET_USER, {
+  const { loading, data, error } = useQuery<GET_USER_TYPE>(GET_USER, {
     variables: { userId },
   })
 
+  if (loading) return <p>Loading...</p>
   if (error) return <p>Error : {error.message}</p>
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <h3>{data?.user.email}</h3>
-      {data?.user.posts.map((post) => (
-        <>
-          <Link key={`post-${post.id}`} to={`/posts/${post.id}`}>
-            {post.title}
-          </Link>
-          <br />
-        </>
-      ))}
+    data?.user && (
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <h3>{data?.user.email}</h3>
+        {data?.user.posts.map((post) => (
+          <>
+            <Link key={`post-${post.id}`} to={`/posts/${post.id}`}>
+              {post.title}
+            </Link>
+            <br />
+          </>
+        ))}
 
-      <Link to={`/newPost/${userId}`}>
-        <Button variant="outlined">new post</Button>
-      </Link>
-    </Box>
+        <Link to={`/newPost/${userId}`}>
+          <Button variant="outlined">new post</Button>
+        </Link>
+      </Box>
+    )
   )
 }
 

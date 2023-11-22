@@ -1,5 +1,4 @@
 import { Box } from "@mui/material"
-import { Suspense } from "react"
 import { Link, Outlet } from "react-router-dom"
 
 const Root = () => {
@@ -23,9 +22,7 @@ const Root = () => {
       </div>
       <div id="detail"></div>
       <Box sx={{ maxWidth: 500 }}>
-        <Suspense>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </Box>
     </Box>
   )
