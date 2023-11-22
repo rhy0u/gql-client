@@ -6,7 +6,7 @@ const GET_USER = gql`
   query User($userId: ID!) {
     user(userId: $userId) {
       id
-      email
+      userName
       posts {
         id
         title
@@ -31,7 +31,7 @@ const Home = () => {
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
-        <h3>{data?.user.email}</h3>
+        <h3>{data?.user.userName}</h3>
         {data?.user.posts.map((post) => (
           <>
             <Link key={`post-${post.id}`} to={`/posts/${post.id}`}>

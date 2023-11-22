@@ -7,7 +7,7 @@ const GET_USERS = gql`
   query Users {
     users {
       id
-      email
+      userName
       posts {
         id
         title
@@ -19,7 +19,7 @@ const ADD_USERS = gql`
   mutation AddUser($user: UserCreateInput!) {
     addUser(user: $user) {
       id
-      email
+      userName
       posts {
         id
         title
@@ -32,7 +32,7 @@ const Home = () => {
   const [addUser] = useMutation<ADD_USER_TYPE>(ADD_USERS, {
     refetchQueries: ["Users"],
   })
-  const [email, setEmail] = useState("")
+  const [userName, setuserName] = useState("")
 
   if (error) return <p>Error : {error.message}</p>
   if (loading) return <p>Loading...</p>
@@ -42,7 +42,7 @@ const Home = () => {
     await addUser({
       variables: {
         user: {
-          email,
+          userName,
         },
       },
     })
@@ -66,7 +66,7 @@ const Home = () => {
             >
               <div>
                 <Link to={`/user/${user.id}`}>
-                  <h3>{user.email}</h3>
+                  <h3>{user.userName}</h3>
                 </Link>
                 {user.posts.map((post) => (
                   <p key={`post-${post.id}`}>
@@ -80,11 +80,11 @@ const Home = () => {
         <form onSubmit={handleSubmit}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <TextField
-              id="email"
-              name="email"
-              label="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="userName"
+              name="userName"
+              label="userName"
+              value={userName}
+              onChange={(e) => setuserName(e.target.value)}
             />
             <Button type="submit" variant="outlined">
               add user
